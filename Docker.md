@@ -26,7 +26,7 @@ The text below runs a Docker container on your local machine. <image> can be any
 
   From here on out, we're basically testing what we want to happen on by using a docker container on our local machine. This allows us to troubleshoot in real-time, and work out any quirks.
   
-  
+Each line here is a command. Try running one at a time to make sure everything works properly.  
   
   ```unix assembly
 apt-get update   #  This is to make sure we have the latest versions of what we need
@@ -59,7 +59,55 @@ samtools    # This is to test that Samtools actually got installed and works
   
 history   # This is so you can see all of the commands you ran. We can use these to construct the Dockerfile
 
-exit.  # To exit the docker container
+exit  # To exit the docker container
   
   ```
+  
+### Now to create the actual Dockerfile ###
+
+Open your computer's text editor and create a new file.  Save it to your desktop as "Dockerfile" with no .txt or extention.
+In this new text file, we're going to scroll back up in our terminal window to where we typed "history" and copy and paste our commands. 
+  
+The text file should look something like this:
+
+``` Unix Assembly
+  
+FROM ubuntu:20.04
+
+RUN apt-get update
+
+RUN apt-get install -y wget \
+  build-essential \
+  libncurses-dev \
+  zlib1g-dev \
+  libbz2-dev \
+  liblzma-dev
+
+### Download and uncompress samtools library ###
+
+WORKDIR /opt/
+RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-1.15.1.tar.bz2
+
+RUN tar -xf samtools-1.15.1.tar.bz2
+
+### Compiling samtools ###
+
+WORKDIR samtools-1.15.1
+RUN ./configure
+RUN make
+RUN make install
+
+COPY Dockerfile /opt/
+
+  ```
+### Hoorah! You've made it! The final steps are to build and push the Dockerfile to the appropriate location on the Seven Bridges Platform ###
+  
+Go back to your terminal and type the following:
+```Unix Assembly
+  
+cd Desktop/     # Or wherever you saved the Dockerfile
+ls              # You should see the file here
+docker build -t cgc.images.sbgenomics.com/USER_NAME/samtools-0-15-1:0 .   #Change USER_NAME to your own username. This builds the docker image from the file we created.
+docker push cgc.images.sbgenomics.com/USER_NAME/samtools-0-15-1:0        #Again, change USER_NAME to your own. This command puts the docker image onto our platform.
+
   
