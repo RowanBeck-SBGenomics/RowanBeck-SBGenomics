@@ -92,7 +92,7 @@ In addition to the VCF files, you will need the following files to perform the G
 - Principal components
 - Kinship matrix
 - Phenotype file
-- 
+
 Researchers can upload these file types to the project using either the command line uploader (linux) or the GUI-based Desktop Uploader (Windows, Mac OS, Linux), both of which can be found under “Data Tools” in the Data tab of the top navigation bar. Please refer to the Documentation pages on “Bring your own data” to read additional details on how to use these features. In addition, for researchers who already have their own harmonized phenotype file, they may also upload this directly to the system.
 
 # **Fit Null Model**
