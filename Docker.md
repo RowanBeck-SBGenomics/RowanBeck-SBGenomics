@@ -21,7 +21,7 @@ Congratulations! You're now logged in! (You won't have to do this every time)
 The text below runs a Docker container on your local machine. <image> can be any image in Docker Hub or the Seven Bridges image registry that you have uploaded or have permission to access. The -it flag makes the container run interactively so we can test it out. In my example below, I'm running ubuntu, version 20.04.
 
  ```unix assembly
- docker run -it ubuntue:20.04
+ docker run -it ubuntu:20.04
   ``` 
 
   From here on out, we're basically testing what we want to happen on by using a docker container on our local machine. This allows us to troubleshoot in real-time, and work out any quirks.
